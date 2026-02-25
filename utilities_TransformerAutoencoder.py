@@ -74,24 +74,3 @@ def predict(model, input_data):
     return label_preds.numpy()
 
 
-
-#
-def create_samples_numpy_concise(a,b,c,d):
-    x_coords = np.random.uniform(a, b, size=(10, 9, 1))
-    y_coords = np.random.uniform(c, d, size=(10, 9, 1))
-    samples = np.concatenate([x_coords, y_coords], axis=2)
-    return samples
-
-#model = DANN(input_dim=2, feature_dim=3, output_dim=2, lambda_val=0.1)
-model = TransformerAutoencoder.TransformerAutoencoder(input_dim=2, feature_dim=10, output_dim=2)
-input_data=create_samples_numpy_concise(0.1,0.2,0.1,0.2)
-print(input_data)
-labels=input_data*4
-#create_samples_numpy_concise(0.1,0.5,0.6,0.99)
-print(labels)
-train_loader = load_data(torch.from_numpy(input_data).float(), torch.from_numpy(labels).float(), batch_size=9)
-train_model(model, train_loader, num_epochs=10, learning_rate=0.001, lambda_val=0.1)
-aaa=create_samples_numpy_concise(0.1,0.2,0.1,0.2)
-predictions = predict(model, torch.from_numpy(aaa).float())
-print(aaa)
-print(predictions)
